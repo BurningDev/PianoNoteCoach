@@ -23,6 +23,9 @@ public class Config {
 	private boolean secondaryNotesGray = false;
 	private boolean secondFourthLineGray = false;
 	private boolean debugMidiInterface = false;
+	private boolean barLine = false;
+	
+	private int range = 0;
 	private int amountNotes = 20;
 	
 	/**
@@ -49,7 +52,10 @@ public class Config {
 				this.secondaryNotesGray = Boolean.valueOf(String.valueOf(this.properties.get("secondaryNotesGray")));
 				this.secondFourthLineGray = Boolean.valueOf(String.valueOf(this.properties.get("secondFourthLineGray")));
 				this.debugMidiInterface = Boolean.valueOf(String.valueOf(this.properties.get("debugMidiInterface")));
+				this.barLine = Boolean.valueOf(String.valueOf(this.properties.get("barLine")));
+				
 				this.amountNotes = Integer.valueOf(String.valueOf(this.properties.get("amountNotes")));
+				this.range = Integer.valueOf(String.valueOf(this.properties.get("range")));
 			}
 		} catch (IOException e) {
 			Logger.error(e, e.getMessage());
@@ -64,10 +70,13 @@ public class Config {
 		this.properties.put("showLowerNotes", String.valueOf(showLowerNotes));
 		this.properties.put("showLabels", String.valueOf(showLabels));
 		this.properties.put("playSounds", String.valueOf(playSounds));
-		this.properties.put("amountNotes", String.valueOf(amountNotes));
 		this.properties.put("secondaryNotesGray", String.valueOf(secondaryNotesGray));
 		this.properties.put("secondFourthLineGray", String.valueOf(secondFourthLineGray));
 		this.properties.put("debugMidiInterface", String.valueOf(debugMidiInterface));
+		this.properties.put("barLine", String.valueOf(barLine));
+		
+		this.properties.put("amountNotes", String.valueOf(amountNotes));
+		this.properties.put("range", String.valueOf(range));
 		
 		try {
 			this.properties.store(new FileWriter(this.configFile), "ConfigFile of PianoNoteCoach");
@@ -146,5 +155,21 @@ public class Config {
 
 	public void setDebugMidiInterface(boolean debugMidiInterface) {
 		this.debugMidiInterface = debugMidiInterface;
+	}
+
+	public boolean isBarLine() {
+		return barLine;
+	}
+
+	public void setBarLine(boolean barLine) {
+		this.barLine = barLine;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
 	}
 }

@@ -19,4 +19,7 @@ public class Const {
 	public static final int LL_UP_ONE = 3;
 	/** Two Ledger Line's above */
 	public static final int LL_UP_TWO = 4;
+	
+	public static final int TREBLE = 0;
+	public static final int BASSLINE = 1;
 }

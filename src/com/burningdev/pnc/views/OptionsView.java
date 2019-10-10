@@ -3,9 +3,12 @@
  */
 package com.burningdev.pnc.views;
 
+import java.awt.Toolkit;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,7 +16,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.Toolkit;
 
 /**
  * The OptionsView has all settings from this application.
@@ -31,12 +33,15 @@ public class OptionsView {
 	private JCheckBox checkEnableSounds;
 	private JCheckBox checkSecondaryNotesGray;
 	private JCheckBox checkSecondFourthLineGray;
+	private JCheckBox checkBarline;
 	
 	private JSpinner spinnerAmountNotes;
 	
 	private JButton btnClose;
 	private JButton btnSave;
 	private JCheckBox checkDebugMidi;
+	
+	private JComboBox<String> comboBoxRange;
 	
 	public void open() {
 		frame.setLocationRelativeTo(null);
@@ -58,20 +63,20 @@ public class OptionsView {
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(OptionsView.class.getResource("/com/burningdev/pnc/res/Icon.png")));
 		frame.setResizable(false);
 		frame.setTitle("Options");
-		frame.setBounds(100, 100, 450, 406);
+		frame.setBounds(100, 100, 450, 500);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panelNotes = new JPanel();
 		panelNotes.setBorder(new TitledBorder(null, "Notes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelNotes.setBounds(10, 11, 424, 126);
+		panelNotes.setBounds(10, 74, 424, 132);
 		frame.getContentPane().add(panelNotes);
 		panelNotes.setLayout(new BoxLayout(panelNotes, BoxLayout.Y_AXIS));
 		
-		checkUpperNotes = new JCheckBox("Show upper notes (F5 - C6)");
+		checkUpperNotes = new JCheckBox("Show upper notes (Treble: F5 - C6, Bass: A3 - E4)");
 		panelNotes.add(checkUpperNotes);
 		
-		checkLowerNotes = new JCheckBox("Show lower notes (A3 - E4)");
+		checkLowerNotes = new JCheckBox("Show lower notes (Treble: A3 - E4, Bass: C2 - G2)");
 		panelNotes.add(checkLowerNotes);
 		
 		checkNoteDesc = new JCheckBox("Display note description (e.g. G)");
@@ -82,6 +87,7 @@ public class OptionsView {
 		panelAmountNotes.setLayout(null);
 		
 		spinnerAmountNotes = new JSpinner();
+		spinnerAmountNotes.setToolTipText("");
 		spinnerAmountNotes.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		spinnerAmountNotes.setBounds(4, 3, 41, 20);
 		panelAmountNotes.add(spinnerAmountNotes);
@@ -92,7 +98,7 @@ public class OptionsView {
 		
 		JPanel panelMisc = new JPanel();
 		panelMisc.setBorder(new TitledBorder(null, "Misc", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelMisc.setBounds(10, 148, 424, 80);
+		panelMisc.setBounds(10, 217, 424, 84);
 		frame.getContentPane().add(panelMisc);
 		panelMisc.setLayout(new BoxLayout(panelMisc, BoxLayout.Y_AXIS));
 		
@@ -104,7 +110,7 @@ public class OptionsView {
 		
 		JPanel panelButtons = new JPanel();
 		panelButtons.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelButtons.setBounds(-13, 327, 473, 50);
+		panelButtons.setBounds(-13, 425, 473, 50);
 		frame.getContentPane().add(panelButtons);
 		panelButtons.setLayout(null);
 		
@@ -120,7 +126,7 @@ public class OptionsView {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Design", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 239, 424, 77);
+		panel.setBounds(10, 312, 424, 102);
 		frame.getContentPane().add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
@@ -129,6 +135,31 @@ public class OptionsView {
 		
 		checkSecondFourthLineGray = new JCheckBox("Second and forth line gray color");
 		panel.add(checkSecondFourthLineGray);
+		
+		checkBarline = new JCheckBox("Bar line");
+		panel.add(checkBarline);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(10, 11, 424, 52);
+		frame.getContentPane().add(panel_2);
+		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Range", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.add(panel_1);
+		panel_1.setLayout(null);
+		
+		comboBoxRange = new JComboBox<>();
+		// 0
+		comboBoxRange.addItem("Treble");
+		// 1
+		comboBoxRange.addItem("Bassline");
+		comboBoxRange.setBounds(10, 21, 140, 20);
+		panel_1.add(comboBoxRange);
+		
+		JLabel lblNotesystemtreble = new JLabel("Note Range (Treble / Bassline)");
+		lblNotesystemtreble.setBounds(160, 24, 248, 14);
+		panel_1.add(lblNotesystemtreble);
 	}
 
 	public JFrame getFrame() {
@@ -173,5 +204,13 @@ public class OptionsView {
 
 	public JButton getBtnSave() {
 		return btnSave;
+	}
+
+	public JCheckBox getCheckBarline() {
+		return checkBarline;
+	}
+
+	public JComboBox<String> getComboBoxRange() {
+		return comboBoxRange;
 	}
 }

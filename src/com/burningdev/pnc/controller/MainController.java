@@ -18,9 +18,13 @@ import org.jfugue.player.Player;
 import org.pmw.tinylog.Logger;
 
 import com.burngindev.pnc.core.Config;
+import com.burngindev.pnc.core.Const;
 import com.burngindev.pnc.core.MidiHandler;
-import com.burngindev.pnc.core.Note;
 import com.burningdev.pnc.dialogs.InfoDialog;
+import com.burningdev.pnc.dialogs.WelcomeDialog;
+import com.burningdev.pnc.musictheory.BasslineNote;
+import com.burningdev.pnc.musictheory.Note;
+import com.burningdev.pnc.musictheory.TrebleNote;
 import com.burningdev.pnc.views.MainView;
 import com.burningdev.pnc.views.SheetPanel;
 
@@ -43,11 +47,21 @@ public class MainController implements Callback, ActionListener, KeyListener {
 	private int statusFinishedNotes = 0;
 	private int statusMistakes = 0;
 
+	private boolean showWelcomeDialog = false;
+	
 	public MainController() {
-		this.config = new Config(new File("config.properties"));
+		final File configFile = new File("config.properties"); 
+		
+		if(!configFile.exists()) {
+			this.showWelcomeDialog = true;
+		}
+		
+		this.config = new Config(configFile);
 		this.mainView = new MainView();
 		this.mainView.getSheetPanel().setNotes(this.notes);
 		this.mainView.getSheetPanel().setShowLabels(this.config.isShowLabels());
+		this.mainView.getSheetPanel().setBarline(this.config.isBarLine());
+		this.mainView.getSheetPanel().setRange(this.config.getRange());
 		this.player = new Player();
 
 		new MidiHandler(this);
@@ -57,6 +71,13 @@ public class MainController implements Callback, ActionListener, KeyListener {
 
 	public void open() {
 		this.mainView.open();
+		
+		if(this.showWelcomeDialog) {
+			WelcomeDialog dialog = new WelcomeDialog();
+			dialog.setLocationRelativeTo(null);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		}
 	}
 
 	@Override
@@ -106,6 +127,9 @@ public class MainController implements Callback, ActionListener, KeyListener {
 	}
 
 	private void start() {
+		this.mainView.getSheetPanel().setRange(this.config.getRange());
+		this.mainView.getSheetPanel().setBarline(this.config.isBarLine());
+		
 		if(!this.config.isDebugMidiInterface()) {
 			this.mainView.getLblDebug().setText("");
 		}
@@ -129,15 +153,27 @@ public class MainController implements Callback, ActionListener, KeyListener {
 		this.notes.clear();
 
 		for (int i = 0; i < this.config.getAmountNotes(); i++) {
-			int index = (int) (Math.random() * (Note.values().length) + 0);
-			final Note note = Note.values()[index];
+			int index = 0;
+			Note note = null;
+			
+			if(this.config.getRange() == Const.TREBLE) {
+				index = (int) (Math.random() * (TrebleNote.values().length) + 0);
+				note = TrebleNote.values()[index];
+			} else if(this.config.getRange() == Const.BASSLINE) {
+				index = (int) (Math.random() * (BasslineNote.values().length) + 0);
+				note = BasslineNote.values()[index];
+			}
 
-			if (!this.config.isShowLowerNotes() && (note.name().length() >= 2 && note.name().endsWith("D"))) {
+			if (!this.config.isShowLowerNotes() && note.getNoteLocation() == Note.DOWN) {
 				i--;
-			} else if (!this.config.isShowUpperNotes() && (note.name().length() >= 2 && note.name().endsWith("U"))) {
+			} else if (!this.config.isShowUpperNotes() && note.getNoteLocation() == Note.UP) {
 				i--;
 			} else {
-				this.notes.add(Note.values()[index]);
+				if(this.config.getRange() == Const.TREBLE) {
+					this.notes.add(TrebleNote.values()[index]);	
+				} else if(this.config.getRange() == Const.BASSLINE) {
+					this.notes.add(BasslineNote.values()[index]);
+				}
 			}
 		}
 

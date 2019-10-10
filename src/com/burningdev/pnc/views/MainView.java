@@ -42,6 +42,7 @@ public class MainView {
 	
 	private JLabel lblStatus;
 	private JLabel lblDebug;
+	
 	private Component horizontalStrut;
 	private Component horizontalStrut2;
 	

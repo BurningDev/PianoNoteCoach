@@ -42,6 +42,7 @@ public class OptionsController implements ActionListener {
 	public void open() {
 		this.optionsView.open();
 
+		this.optionsView.getSpinnerAmountNotes().setValue(this.config.getAmountNotes());
 		this.optionsView.getCheckEnableSounds().setSelected(this.config.isPlaySounds());
 		this.optionsView.getCheckLowerNotes().setSelected(this.config.isShowLowerNotes());
 		this.optionsView.getCheckUpperNotes().setSelected(this.config.isShowUpperNotes());
@@ -49,7 +50,8 @@ public class OptionsController implements ActionListener {
 		this.optionsView.getCheckSecondaryNotesGray().setSelected(this.config.isSecondaryNotesGray());
 		this.optionsView.getCheckSecondFourthLineGray().setSelected(this.config.isSecondFourthLineGray());
 		this.optionsView.getCheckDebugMidi().setSelected(this.config.isDebugMidiInterface());
-		this.optionsView.getSpinnerAmountNotes().setValue(this.config.getAmountNotes());
+		this.optionsView.getCheckBarline().setSelected(this.config.isBarLine());
+		this.optionsView.getComboBoxRange().setSelectedIndex(this.config.getRange());
 	}
 
 	@Override
@@ -57,6 +59,7 @@ public class OptionsController implements ActionListener {
 		if (e.getSource() instanceof JButton) {
 			switch (e.getActionCommand()) {
 			case "save":
+				this.config.setRange((int) this.optionsView.getComboBoxRange().getSelectedIndex());
 				this.config.setAmountNotes((int) this.optionsView.getSpinnerAmountNotes().getValue());
 				this.config.setPlaySounds(this.optionsView.getCheckEnableSounds().isSelected());
 				this.config.setShowLabels(this.optionsView.getCheckNoteDesc().isSelected());
@@ -65,6 +68,7 @@ public class OptionsController implements ActionListener {
 				this.config.setSecondaryNotesGray(this.optionsView.getCheckSecondaryNotesGray().isSelected());
 				this.config.setSecondFourthLineGray(this.optionsView.getCheckSecondFourthLineGray().isSelected());
 				this.config.setDebugMidiInterface(this.optionsView.getCheckDebugMidi().isSelected());
+				this.config.setBarLine(this.optionsView.getCheckBarline().isSelected());
 				
 				this.config.save();
 				

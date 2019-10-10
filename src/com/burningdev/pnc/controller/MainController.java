@@ -129,7 +129,7 @@ public class MainController implements Callback, ActionListener, KeyListener {
 		this.notes.clear();
 
 		for (int i = 0; i < this.config.getAmountNotes(); i++) {
-			int index = (int) (Math.random() * (Note.values().length - 1) + 1);
+			int index = (int) (Math.random() * (Note.values().length) + 0);
 			final Note note = Note.values()[index];
 
 			if (!this.config.isShowLowerNotes() && (note.name().length() >= 2 && note.name().endsWith("D"))) {

@@ -43,6 +43,7 @@ public class MainView {
 	private JLabel lblStatus;
 	private JLabel lblDebug;
 	private Component horizontalStrut;
+	private Component horizontalStrut2;
 	
 	public void open() {
 		frame.setLocationRelativeTo(null);
@@ -82,6 +83,9 @@ public class MainView {
 		lblStatus = new JLabel("");
 		lblStatus.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		panelStatus.add(lblStatus);
+		
+		horizontalStrut2 = Box.createHorizontalStrut(10);
+		panelStatus.add(horizontalStrut2);
 
 		JPanel panelButtons = new JPanel();
 		panelButtons.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));

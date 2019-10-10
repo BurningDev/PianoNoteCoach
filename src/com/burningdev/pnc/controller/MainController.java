@@ -106,6 +106,10 @@ public class MainController implements Callback, ActionListener, KeyListener {
 	}
 
 	private void start() {
+		if(!this.config.isDebugMidiInterface()) {
+			this.mainView.getLblDebug().setText("");
+		}
+		
 		this.mainView.getSheetPanel().setShowLabels(this.config.isShowLabels());
 		if(this.config.isSecondaryNotesGray()) {
 			this.mainView.getSheetPanel().setDesignSecondaryNotes(SheetPanel.DESIGN_GRAY);

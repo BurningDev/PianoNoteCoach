@@ -9,12 +9,14 @@ package com.burngindev.pnc.core;
  * @author BurningDev
  */
 public class Const {
-	/** No Ledger line */
+	/** No Ledger Line */
 	public static final int LL_NONE = 0;
-	/** Ledger line in middle */
-	public static final int LL_MIDDLE = 1;
-	/** Ledger line above */
-	public static final int LL_UP = 2;
-	/** Ledger line below */
-	public static final int LL_DOWN = 3;
+	/** One Ledger Line below */
+	public static final int LL_DOWN_ONE = 1;
+	/** Two Ledger Line's below */
+	public static final int LL_DOWN_TWO = 2;
+	/** One Ledger Line above */
+	public static final int LL_UP_ONE = 3;
+	/** Two Ledger Line's above */
+	public static final int LL_UP_TWO = 4;
 }

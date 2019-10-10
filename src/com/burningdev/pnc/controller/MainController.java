@@ -22,6 +22,7 @@ import com.burngindev.pnc.core.MidiHandler;
 import com.burngindev.pnc.core.Note;
 import com.burningdev.pnc.dialogs.InfoDialog;
 import com.burningdev.pnc.views.MainView;
+import com.burningdev.pnc.views.SheetPanel;
 
 /**
  * The Controller for the MainView. Is contains the logic.
@@ -61,6 +62,10 @@ public class MainController implements Callback, ActionListener, KeyListener {
 	@Override
 	public void callback(int data1, int data2, int data3) {
 		typeKey(data1, "", data2, data3);
+		
+		if(this.config.isDebugMidiInterface()) {
+			this.mainView.getLblDebug().setText("[0] '" + data1 + "'  [1] '" + data2 + "'  [2] '" + data3 + "'");
+		}
 	}
 
 	@Override
@@ -102,7 +107,18 @@ public class MainController implements Callback, ActionListener, KeyListener {
 
 	private void start() {
 		this.mainView.getSheetPanel().setShowLabels(this.config.isShowLabels());
-
+		if(this.config.isSecondaryNotesGray()) {
+			this.mainView.getSheetPanel().setDesignSecondaryNotes(SheetPanel.DESIGN_GRAY);
+		} else {
+			this.mainView.getSheetPanel().setDesignSecondaryNotes(SheetPanel.DESIGN_BLACK);
+		}
+		
+		if(this.config.isSecondFourthLineGray()) {
+			this.mainView.getSheetPanel().setDesignLines(SheetPanel.DESIGN_GRAY);
+		} else {
+			this.mainView.getSheetPanel().setDesignLines(SheetPanel.DESIGN_BLACK);
+		}
+		
 		this.statusFinishedNotes = 0;
 		this.statusMistakes = 0;
 
@@ -187,7 +203,6 @@ public class MainController implements Callback, ActionListener, KeyListener {
 			typeKey(-1, "B", -112, 1);
 			break;
 		default:
-			Logger.error(e.getKeyChar() + " doesen't exists");
 		}
 	}
 

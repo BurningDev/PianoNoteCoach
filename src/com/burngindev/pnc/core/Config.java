@@ -20,6 +20,9 @@ public class Config {
 	private boolean showLowerNotes = false;
 	private boolean showLabels = true;
 	private boolean playSounds = true;
+	private boolean secondaryNotesGray = false;
+	private boolean secondFourthLineGray = false;
+	private boolean debugMidiInterface = false;
 	private int amountNotes = 20;
 	
 	/**
@@ -35,13 +38,7 @@ public class Config {
 			if (!configFile.exists()) {
 				configFile.createNewFile();
 				
-				this.properties.put("showUpperNotes", String.valueOf(showUpperNotes));
-				this.properties.put("showLowerNotes", String.valueOf(showLowerNotes));
-				this.properties.put("showLabels", String.valueOf(showLabels));
-				this.properties.put("playSounds", String.valueOf(playSounds));
-				this.properties.put("amountNotes", String.valueOf(amountNotes));
-				
-				this.properties.store(new FileWriter(configFile), "ConfigFile of PianoNoteCoach");
+				save();
 			} else {
 				this.properties.load(new FileReader(configFile));
 				
@@ -49,6 +46,9 @@ public class Config {
 				this.showLowerNotes = Boolean.valueOf(String.valueOf(this.properties.get("showLowerNotes")));
 				this.showLabels = Boolean.valueOf(String.valueOf(this.properties.get("showLabels")));
 				this.playSounds = Boolean.valueOf(String.valueOf(this.properties.get("playSounds")));
+				this.secondaryNotesGray = Boolean.valueOf(String.valueOf(this.properties.get("secondaryNotesGray")));
+				this.secondFourthLineGray = Boolean.valueOf(String.valueOf(this.properties.get("secondFourthLineGray")));
+				this.debugMidiInterface = Boolean.valueOf(String.valueOf(this.properties.get("debugMidiInterface")));
 				this.amountNotes = Integer.valueOf(String.valueOf(this.properties.get("amountNotes")));
 			}
 		} catch (IOException e) {
@@ -65,6 +65,9 @@ public class Config {
 		this.properties.put("showLabels", String.valueOf(showLabels));
 		this.properties.put("playSounds", String.valueOf(playSounds));
 		this.properties.put("amountNotes", String.valueOf(amountNotes));
+		this.properties.put("secondaryNotesGray", String.valueOf(secondaryNotesGray));
+		this.properties.put("secondFourthLineGray", String.valueOf(secondFourthLineGray));
+		this.properties.put("debugMidiInterface", String.valueOf(debugMidiInterface));
 		
 		try {
 			this.properties.store(new FileWriter(this.configFile), "ConfigFile of PianoNoteCoach");
@@ -119,5 +122,29 @@ public class Config {
 
 	public void setAmountNotes(int amountNotes) {
 		this.amountNotes = amountNotes;
+	}
+
+	public boolean isSecondaryNotesGray() {
+		return secondaryNotesGray;
+	}
+
+	public void setSecondaryNotesGray(boolean secondaryNotesGray) {
+		this.secondaryNotesGray = secondaryNotesGray;
+	}
+
+	public boolean isSecondFourthLineGray() {
+		return secondFourthLineGray;
+	}
+
+	public void setSecondFourthLineGray(boolean secondFourthLineGray) {
+		this.secondFourthLineGray = secondFourthLineGray;
+	}
+
+	public boolean isDebugMidiInterface() {
+		return debugMidiInterface;
+	}
+
+	public void setDebugMidiInterface(boolean debugMidiInterface) {
+		this.debugMidiInterface = debugMidiInterface;
 	}
 }

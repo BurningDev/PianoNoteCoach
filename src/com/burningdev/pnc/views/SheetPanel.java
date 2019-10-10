@@ -34,26 +34,44 @@ public class SheetPanel extends JPanel {
 	private static final int ZERO_Y = 100;
 
 	private List<Note> notes = new ArrayList<>();
+	private int designLines = DESIGN_BLACK;
+	private int designSecondaryNotes = DESIGN_BLACK;
+	
+	public static final int DESIGN_BLACK = 0;
+	public static final int DESIGN_GRAY = 1;
 
 	private boolean showLabels = false;
-	
+
 	@Override
 	public void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
 
 		Graphics2D g = (Graphics2D) graphics;
 
-		g.drawLine(ZERO_X + 5, ZERO_Y + 5, ZERO_X + 500, ZERO_Y + 5);
-		g.drawLine(ZERO_X + 5, ZERO_Y + 20, ZERO_X + 500, ZERO_Y + 20);
-		g.drawLine(ZERO_X + 5, ZERO_Y + 35, ZERO_X + 500, ZERO_Y + 35);
-		g.drawLine(ZERO_X + 5, ZERO_Y + 50, ZERO_X + 500, ZERO_Y + 50);
-		g.drawLine(ZERO_X + 5, ZERO_Y + 65, ZERO_X + 500, ZERO_Y + 65);
+		if (this.designLines == DESIGN_BLACK) {
+			g.drawLine(ZERO_X + 5, ZERO_Y + 5, ZERO_X + 500, ZERO_Y + 5);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 20, ZERO_X + 500, ZERO_Y + 20);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 35, ZERO_X + 500, ZERO_Y + 35);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 50, ZERO_X + 500, ZERO_Y + 50);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 65, ZERO_X + 500, ZERO_Y + 65);
+		} else if (this.designLines == DESIGN_GRAY) {
+			g.setColor(Color.BLACK);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 5, ZERO_X + 500, ZERO_Y + 5);
+			g.setColor(Color.GRAY);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 20, ZERO_X + 500, ZERO_Y + 20);
+			g.setColor(Color.BLACK);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 35, ZERO_X + 500, ZERO_Y + 35);
+			g.setColor(Color.GRAY);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 50, ZERO_X + 500, ZERO_Y + 50);
+			g.setColor(Color.BLACK);
+			g.drawLine(ZERO_X + 5, ZERO_Y + 65, ZERO_X + 500, ZERO_Y + 65);
+		}
 
 		g.drawLine(ZERO_X + 5, ZERO_Y + 5, ZERO_X + 5, ZERO_Y + 65);
 		g.drawLine(ZERO_X + 6, ZERO_Y + 5, ZERO_X + 6, ZERO_Y + 65);
 		g.drawLine(ZERO_X + 500, ZERO_Y + 5, ZERO_X + 500, ZERO_Y + 65);
 		g.drawLine(ZERO_X + 499, ZERO_Y + 5, ZERO_X + 499, ZERO_Y + 65);
-		
+
 		Image image = null;
 		try {
 			image = ImageIO.read(new File("images/g_clef.png"));
@@ -62,14 +80,21 @@ public class SheetPanel extends JPanel {
 		}
 		g.drawImage(image, ZERO_X + 5, ZERO_Y - 35, null);
 
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-	            RenderingHints.VALUE_ANTIALIAS_ON); 
-		
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
 		int x = 0;
 		for (Note note : this.notes) {
 			if (x <= 13) {
-				paintNote(x, note, this.showLabels, g);
-				x++;
+				if(x != 0 && this.designSecondaryNotes == DESIGN_BLACK) {
+					paintNote(x, note, this.showLabels, g, Color.BLACK);
+					x++;	
+				} else if(x != 0 && this.designSecondaryNotes == DESIGN_GRAY) {
+					paintNote(x, note, this.showLabels, g, Color.GRAY);
+					x++;
+				} else {
+					paintNote(x, note, this.showLabels, g, Color.BLACK);
+					x++;
+				}
 			}
 		}
 	}
@@ -77,26 +102,35 @@ public class SheetPanel extends JPanel {
 	/**
 	 * Paints a music note
 	 * 
-	 * @param place is the x place from this note
-	 * @param note is the type of note
-	 * @param showDesc is the information, if the title of the note should be displayed
-	 * @param g is the Graphics2D object of the panel
+	 * @param place    is the x place from this note
+	 * @param note     is the type of note
+	 * @param showDesc is the information, if the title of the note should be
+	 *                 displayed
+	 * @param c		   is the color of the note
+	 * @param g        is the Graphics2D object of the panel
 	 */
-	private void paintNote(int place, Note note, boolean showDesc, Graphics2D g) {
+	private void paintNote(int place, Note note, boolean showDesc, Graphics2D g, Color c) {
 		int xShift = place * 30 + 65;
 
-		if(note.getLedgerLine() == Const.LL_MIDDLE) {
-			g.drawLine(ZERO_X + xShift, ZERO_Y + (int) (note.getYShift() * 15) + 28, ZERO_X + xShift + 30, ZERO_Y + (int) (note.getYShift() * 15) + 28);
+		if (note.getLedgerLine() == Const.LL_UP_ONE) {
+			g.drawLine(ZERO_X + xShift, ZERO_Y - 10, ZERO_X + xShift + 30,
+					ZERO_Y - 10);
+		} else if (note.getLedgerLine() == Const.LL_UP_TWO) {
+			g.drawLine(ZERO_X + xShift, ZERO_Y - 10, ZERO_X + xShift + 30,
+					ZERO_Y - 10);
+			g.drawLine(ZERO_X + xShift, ZERO_Y - 25, ZERO_X + xShift + 30,
+					ZERO_Y - 25);
+		} else if (note.getLedgerLine() == Const.LL_DOWN_ONE) {
+			g.drawLine(ZERO_X + xShift, ZERO_Y + 80, ZERO_X + xShift + 30,
+					ZERO_Y + 80);
+		} else if (note.getLedgerLine() == Const.LL_DOWN_TWO) {
+			g.drawLine(ZERO_X + xShift, ZERO_Y + 80, ZERO_X + xShift + 30,
+					ZERO_Y + 80);
+			g.drawLine(ZERO_X + xShift, ZERO_Y + 95, ZERO_X + xShift + 30,
+					ZERO_Y + 95);
 		}
-		
-		else if(note.getLedgerLine() == Const.LL_UP) {
-			g.drawLine(ZERO_X + xShift, ZERO_Y + (int) (note.getYShift() * 15) + 20, ZERO_X + xShift + 30, ZERO_Y + (int) (note.getYShift() * 15) + 20);
-		}
-		
-		else if(note.getLedgerLine() == Const.LL_DOWN) {
-			g.drawLine(ZERO_X + xShift, ZERO_Y + (int) (note.getYShift() * 15) + 35, ZERO_X + xShift + 30, ZERO_Y + (int) (note.getYShift() * 15) + 35);
-		}
-		
+
+		g.setColor(c);
 		g.drawLine(ZERO_X + xShift + 24, ZERO_Y + (int) (note.getYShift() * 15) + 28, ZERO_X + xShift + 24,
 				ZERO_Y + (int) (note.getYShift() * 15) - 20);
 		g.fillOval(ZERO_X + xShift + 5, ZERO_Y + (int) (note.getYShift() * 15) + 20, 20, 15);
@@ -110,8 +144,16 @@ public class SheetPanel extends JPanel {
 	public void setNotes(List<Note> notes) {
 		this.notes = notes;
 	}
-	
+
 	public void setShowLabels(boolean showLabels) {
 		this.showLabels = showLabels;
+	}
+
+	public void setDesignLines(int designLines) {
+		this.designLines = designLines;
+	}
+
+	public void setDesignSecondaryNotes(int designSecondaryNotes) {
+		this.designSecondaryNotes = designSecondaryNotes;
 	}
 }

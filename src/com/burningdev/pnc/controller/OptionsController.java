@@ -46,6 +46,9 @@ public class OptionsController implements ActionListener {
 		this.optionsView.getCheckLowerNotes().setSelected(this.config.isShowLowerNotes());
 		this.optionsView.getCheckUpperNotes().setSelected(this.config.isShowUpperNotes());
 		this.optionsView.getCheckNoteDesc().setSelected(this.config.isShowLabels());
+		this.optionsView.getCheckSecondaryNotesGray().setSelected(this.config.isSecondaryNotesGray());
+		this.optionsView.getCheckSecondFourthLineGray().setSelected(this.config.isSecondFourthLineGray());
+		this.optionsView.getCheckDebugMidi().setSelected(this.config.isDebugMidiInterface());
 		this.optionsView.getSpinnerAmountNotes().setValue(this.config.getAmountNotes());
 	}
 
@@ -59,6 +62,9 @@ public class OptionsController implements ActionListener {
 				this.config.setShowLabels(this.optionsView.getCheckNoteDesc().isSelected());
 				this.config.setShowLowerNotes(this.optionsView.getCheckLowerNotes().isSelected());
 				this.config.setShowUpperNotes(this.optionsView.getCheckUpperNotes().isSelected());
+				this.config.setSecondaryNotesGray(this.optionsView.getCheckSecondaryNotesGray().isSelected());
+				this.config.setSecondFourthLineGray(this.optionsView.getCheckSecondFourthLineGray().isSelected());
+				this.config.setDebugMidiInterface(this.optionsView.getCheckDebugMidi().isSelected());
 				
 				this.config.save();
 				

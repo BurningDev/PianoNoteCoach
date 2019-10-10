@@ -20,6 +20,8 @@ import org.pmw.tinylog.Logger;
 
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.Component;
+import javax.swing.Box;
 
 /**
  * The MainView contains the sheet of music.
@@ -39,6 +41,8 @@ public class MainView {
 	private JButton btnExit;
 	
 	private JLabel lblStatus;
+	private JLabel lblDebug;
+	private Component horizontalStrut;
 	
 	public void open() {
 		frame.setLocationRelativeTo(null);
@@ -68,6 +72,12 @@ public class MainView {
 		FlowLayout flPanelStatus = (FlowLayout) panelStatus.getLayout();
 		flPanelStatus.setAlignment(FlowLayout.RIGHT);
 		frame.getContentPane().add(panelStatus, BorderLayout.NORTH);
+		
+		lblDebug = new JLabel("");
+		panelStatus.add(lblDebug);
+		
+		horizontalStrut = Box.createHorizontalStrut(50);
+		panelStatus.add(horizontalStrut);
 
 		lblStatus = new JLabel("");
 		lblStatus.setFont(new Font("Segoe UI", Font.PLAIN, 11));
@@ -132,5 +142,9 @@ public class MainView {
 	
 	public JFrame getFrame() {
 		return this.frame;
+	}
+
+	public JLabel getLblDebug() {
+		return lblDebug;
 	}
 }

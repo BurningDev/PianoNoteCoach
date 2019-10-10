@@ -16,15 +16,15 @@ public enum Note {
 	//
 	ED("E", -8, "E4h", 2.5, Const.LL_NONE),
 	DD("D", -10, "D4h", 3, Const.LL_NONE),
-	CD("C", -12, "C4h", 3.5, Const.LL_MIDDLE),
-	BD("B", -13, "B3h", 4, Const.LL_UP),
-	AD("A", -15, "A3h", 4.5, Const.LL_MIDDLE),
+	CD("C", -12, "C4h", 3.5, Const.LL_DOWN_ONE),
+	BD("B", -13, "B3h", 4, Const.LL_DOWN_ONE),
+	AD("A", -15, "A3h", 4.5, Const.LL_DOWN_TWO),
 	//
-	FU("F", 5, "F5h", -1, Const.LL_NONE),
-	GU("G", 7, "G5h", -1.5, Const.LL_NONE),
-	AU("A", 9, "A5h", -2, Const.LL_NONE),
-	BU("B", 11, "B5h", -2.5, Const.LL_MIDDLE),
-	CU("C", 12, "C6h", -3, Const.LL_DOWN);
+	FU("F", 5, "F5h", -1.5, Const.LL_NONE),
+	GU("G", 7, "G5h", -2, Const.LL_NONE),
+	AU("A", 9, "A5h", -2.5, Const.LL_UP_ONE),
+	BU("B", 11, "B5h", -3, Const.LL_UP_ONE),
+	CU("C", 12, "C6h", -3.5, Const.LL_UP_TWO);
 
 	/**
 	 * Contructor

@@ -2,9 +2,11 @@
 A trainer that helps you to read music notes.
 
 ![alt text](https://raw.githubusercontent.com/BurningDev/PianoNoteCoach/master/images/PianoNoteCoach.png)
-![alt text](https://raw.githubusercontent.com/BurningDev/PianoNoteCoach/master/images/PianoNoteCoach4.png)
+
 ## How does it work?
 You open the application and press on the button "Start". After that, notes will be displayed and you must type them with your midi keyboard. If you don't have a midi keyboard, you can use the computer keyboard. For further information, look at the info dialog.
+
+![alt text](https://raw.githubusercontent.com/BurningDev/PianoNoteCoach/master/images/PianoNoteCoach4.png)
 
 ## Requirements
 You need Java 8 to run this program

@@ -5,6 +5,7 @@ package com.burningdev.pnc.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -69,10 +70,22 @@ public class OptionsController implements ActionListener {
 				this.config.setSecondFourthLineGray(this.optionsView.getCheckSecondFourthLineGray().isSelected());
 				this.config.setDebugMidiInterface(this.optionsView.getCheckDebugMidi().isSelected());
 				this.config.setBarLine(this.optionsView.getCheckBarline().isSelected());
-				
-				this.config.save();
-				
-				JOptionPane.showMessageDialog(null, "Options successfully saved.", "Options saved", JOptionPane.INFORMATION_MESSAGE);
+
+				boolean noError = true;
+
+				try {
+					this.config.save();
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, "Options not saved: " + e1.getMessage(), "Error occured",
+							JOptionPane.ERROR_MESSAGE);
+					Logger.error(e1, e1.getMessage());
+					noError = false;
+				}
+
+				if (noError) {
+					JOptionPane.showMessageDialog(null, "Options successfully saved.", "Options saved",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
 				break;
 			case "close":
 				this.optionsView.getFrame().dispose();

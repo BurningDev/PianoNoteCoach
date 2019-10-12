@@ -35,6 +35,7 @@ public class InfoDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	public InfoDialog() {
+		setResizable(false);
 		setIconImage(
 				Toolkit.getDefaultToolkit().getImage(InfoDialog.class.getResource("/com/burningdev/pnc/res/Icon.png")));
 		try {
@@ -53,7 +54,7 @@ public class InfoDialog extends JDialog {
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		scrollPane.setBounds(10, 46, 414, 268);
+		scrollPane.setBounds(10, 46, 424, 278);
 		contentPanel.add(scrollPane);
 
 		JTextPane textPane = new JTextPane();
@@ -63,8 +64,8 @@ public class InfoDialog extends JDialog {
 		textPane.setContentType("text/html");
 		textPane.setText("<html>\r\n" + "    <head>\r\n" + "        <style>\r\n" + "        table, th, td {\r\n"
 				+ "  border: 1px solid black;\r\n" + "} \r\n" + "th, td {\r\n" + "  padding: 10px;\r\n"
-				+ "  text-align: left;\r\n" + "}\r\n" + "        </style>\r\n" + "    </head>\r\n" + "<body>\r\n"
-				+ "<div style=\"font: SegoeUI\">\r\n"
+				+ "  text-align: left;\r\n" + "}\r\n" + "h2 {\r\n" + "  margin-top: 15px;\r\n" + "}\r\n"
+				+ "        </style>\r\n" + "    </head>\r\n" + "<body>\r\n" + "<div style=\"font: SegoeUI\">\r\n"
 				+ "This application <b>helps you, to learn notes</b>. You need a midi keyboard, to work with this program. If you don't have a midi keyboard,\r\n"
 				+ "you can use this software with the keyboard from your computer. A = C, S = D .. J = B, because there are only seven keys, there are no different keys for other octaves.\r\n"
 				+ "This means G = G3, G4, G5 .., if you use a computer keyboard. When PianoNoteCoach is started, you click\r\n"
@@ -78,8 +79,10 @@ public class InfoDialog extends JDialog {
 				+ "<h2>Support us</h2>\r\n" + "If you like this program, you can support us.<br>\r\n"
 				+ "1. Tell your friends about this application<br>\r\n"
 				+ "2. Give the github respository of this project a star<br>\r\n"
-				+ "3. Tell us, if you find a bug<br>\r\n" + "<h2>License</h2>\r\n" + "Copyright 2019 BurningDev\r\n"
-				+ "<br><br>\r\n" + "Licensed under the Apache License, Version 2.0 (the \"License\");\r\n"
+				+ "3. Tell us, if you find a bug<br>\r\n" + "<br>\r\n"
+				+ "<i>GitHub: https://github.com/BurningDev/PianoNoteCoach/</i>\r\n" + "<h2>License</h2>\r\n"
+				+ "Copyright 2019 BurningDev\r\n" + "<br><br>\r\n"
+				+ "Licensed under the Apache License, Version 2.0 (the \"License\");\r\n"
 				+ "you may not use this file except in compliance with the License.\r\n"
 				+ "You may obtain a copy of the License at\r\n" + "<br><br>\r\n"
 				+ "    http://www.apache.org/licenses/LICENSE-2.0\r\n" + "<br><br>\r\n"
@@ -92,13 +95,14 @@ public class InfoDialog extends JDialog {
 				+ "<tr><td>JFugue</td> <td>http://www.jfugue.org/</td> <td>Apache License, version 2.0</td></tr>\r\n"
 				+ "<tr><td>Tinylog</td> <td>https://tinylog.org/</td> <td>Apache License 2.0</td></tr>\r\n"
 				+ "</table>\r\n" + "</div>\r\n" + "</body>\r\n" + "</html>");
+		textPane.setCaretPosition(0);
 
 		JLabel lblPianonotecoach = new JLabel("PianoNoteCoach");
 		lblPianonotecoach.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		lblPianonotecoach.setBounds(10, 11, 414, 24);
 		contentPanel.add(lblPianonotecoach);
 		JButton okButton = new JButton("OK");
-		okButton.setBounds(324, 325, 100, 25);
+		okButton.setBounds(334, 335, 100, 25);
 		contentPanel.add(okButton);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {

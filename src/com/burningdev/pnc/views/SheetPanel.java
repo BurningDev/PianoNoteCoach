@@ -136,8 +136,14 @@ public class SheetPanel extends JPanel {
 		}
 
 		g.setColor(c);
-		g.drawLine(ZERO_X + xShift + 24, ZERO_Y + (int) (note.getYShift() * 15) + 28, ZERO_X + xShift + 24,
-				ZERO_Y + (int) (note.getYShift() * 15) - 20);
+		if(note.getYShift() > 0.5 ) {
+			g.drawLine(ZERO_X + xShift + 24, ZERO_Y + (int) (note.getYShift() * 15) + 28, ZERO_X + xShift + 24,
+					ZERO_Y + (int) (note.getYShift() * 15) - 20);
+		} else {
+			g.drawLine(ZERO_X + xShift + 24, ZERO_Y + (int) (note.getYShift() * 15) + 28, ZERO_X + xShift + 24,
+					ZERO_Y + (int) (note.getYShift() * 15) + 73);
+		}
+		
 		g.fillOval(ZERO_X + xShift + 5, ZERO_Y + (int) (note.getYShift() * 15) + 20, 20, 15);
 		if (showDesc) {
 			g.setColor(Color.WHITE);

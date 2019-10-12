@@ -16,6 +16,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 /**
  * The OptionsView has all settings from this application.
@@ -88,7 +90,7 @@ public class OptionsView {
 		
 		spinnerAmountNotes = new JSpinner();
 		spinnerAmountNotes.setToolTipText("");
-		spinnerAmountNotes.setModel(new SpinnerNumberModel(0, 0, 100, 1));
+		spinnerAmountNotes.setModel(new SpinnerNumberModel(1, 1, 100, 1));
 		spinnerAmountNotes.setBounds(4, 3, 41, 20);
 		panelAmountNotes.add(spinnerAmountNotes);
 		
@@ -145,7 +147,7 @@ public class OptionsView {
 		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "Range", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Clef", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2.add(panel_1);
 		panel_1.setLayout(null);
 		

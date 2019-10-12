@@ -65,7 +65,7 @@ public class Config {
 	/**
 	 * Saves the settings into the configuration file.
 	 */
-	public void save() {
+	public void save() throws IOException {
 		this.properties.put("showUpperNotes", String.valueOf(showUpperNotes));
 		this.properties.put("showLowerNotes", String.valueOf(showLowerNotes));
 		this.properties.put("showLabels", String.valueOf(showLabels));
@@ -78,11 +78,7 @@ public class Config {
 		this.properties.put("amountNotes", String.valueOf(amountNotes));
 		this.properties.put("range", String.valueOf(range));
 		
-		try {
-			this.properties.store(new FileWriter(this.configFile), "ConfigFile of PianoNoteCoach");
-		} catch (IOException e) {
-			Logger.error(e, e.getMessage());
-		}
+		this.properties.store(new FileWriter(this.configFile), "ConfigFile of PianoNoteCoach");
 	}
 
 	public Properties getProperties() {

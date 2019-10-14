@@ -8,6 +8,11 @@ You open the application and press on the button "Start". After that, notes will
 
 ![alt text](https://raw.githubusercontent.com/BurningDev/PianoNoteCoach/master/images/PianoNoteCoach4.png)
 
+## Current main features of newest release
+* two clefs: treble and bassline
+* sound, if you typing the right note
+* use this program with your midi device or computer keyboard
+
 ## Requirements
 You need Java 8 to run this program
 
